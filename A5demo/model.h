@@ -9,10 +9,20 @@ class model : public QObject
 public:
     explicit model(QObject *parent = nullptr);
     QTimer* timer;
+    void checkRed();
+    void checkBlue();
+
 signals: //define signals to be emitted from FORM objects
     void updateSpinBox(int);
-    void sequenceRed(const QString);
-    void sequenceBlue(const QString);
+    void highlightRed(const QString);
+    void highlightBlue(const QString);
+    void revertRed(const QString);
+    void revertBlue(const QString);
+    void deactivateStartButton();
+    void activateStartButton();
+    void lostGame();
+
+
 
 public slots://add slots here for functionality of FORM objects
     void startGame();//Implement slot in model.cpp
@@ -22,6 +32,11 @@ public slots://add slots here for functionality of FORM objects
 private:
     int data;
     QVector<int> moveList;
+    void flashRed();
+    void flashBlue();
+    void revertToDefault();
+
+    void checkMovesList();
 };
 
 #endif // MODEL_H

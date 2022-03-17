@@ -14,9 +14,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(model& model, QWidget *parent = nullptr);
     ~MainWindow();
+    void disableButton();
+    void enableButton();
 
 private slots:
     void on_pushButton_clicked();
+
 
 private:
     Ui::MainWindow *ui;

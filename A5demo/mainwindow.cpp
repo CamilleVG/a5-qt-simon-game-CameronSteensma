@@ -12,20 +12,40 @@ MainWindow::MainWindow(model& model, QWidget *parent)
             &model,
             &model::startGame);
 
-    connect(&model,
-            &model::updateSpinBox,
-            ui->spinBox,
-            &QSpinBox::setValue);
+    connect(ui->redButton,
+            &QPushButton::clicked,
+            &model,
+            &model::checkRed);
 
     connect(&model,
-            &model::sequenceRed,
-            ui->sequenceBox,
-            &QLabel::setStyleSheet);
+           &model::deactivateStartButton,
+           this,
+           &MainWindow::disableButton);
 
     connect(&model,
-            &model::sequenceBlue,
-            ui->sequenceBox,
-            &QLabel::setStyleSheet);
+            &model::activateStartButton,
+            this,
+            &MainWindow::enableButton);
+
+    connect(&model,
+            &model::highlightRed,
+            ui->redButton,
+            &QPushButton::setStyleSheet);
+
+    connect(&model,
+            &model::highlightBlue,
+            ui->blueButton,
+            &QPushButton::setStyleSheet);
+
+    connect(&model,
+            &model::revertRed,
+            ui->redButton,
+            &QPushButton::setStyleSheet);
+
+    connect(&model,
+            &model::revertBlue,
+            ui->blueButton,
+            &QPushButton::setStyleSheet);
 
 
 
@@ -47,6 +67,15 @@ void MainWindow::on_pushButton_clicked()
             &QTimer::timeout,
             [this]()
     {});
-    timer->start(2500);
+    timer->start(1000);
 }
 
+void MainWindow::disableButton()
+{
+  ui->startButton->setEnabled(false);
+}
+
+void MainWindow::enableButton()
+{
+  ui->startButton->setEnabled(true);
+}
